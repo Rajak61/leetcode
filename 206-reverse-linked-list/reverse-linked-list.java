@@ -8,6 +8,8 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+ //https://www.youtube.com/watch?v=jY-EUKXYT20&ab_channel=DineshVaryani
+ //Time-0(n), space-0(1)
 class Solution {
     public ListNode reverseList(ListNode head) {
         
@@ -17,8 +19,8 @@ class Solution {
         while(current!=null){
             next=current.next; //assign next node
             current.next=prev;//reverse pointer to back
-            prev=current;//node
-            current=next;//node
+            prev=current;//node back to current
+            current=next;//node from current to next
 
         }
         return prev;
