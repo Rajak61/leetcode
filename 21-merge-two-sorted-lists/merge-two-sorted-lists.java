@@ -8,7 +8,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
- //Theory all solution -https://www.youtube.com/watch?v=q5a5OiGbT6Q&ab_channel=NeetCode
+ //Theory all solution -https://www.youtube.com/watch?v=q5a5OiGbT6Q&ab_channel=NeetCode --solution
  ///https://www.youtube.com/watch?v=q5a5OiGbT6Q&ab_channel=NeetCode
  //Time -0(n+m), space 0(1)
  //
@@ -18,7 +18,7 @@ class Solution {
         ListNode tail = dummy;
 
         while(list1!=null && list2!=null){
-           // while(true){
+          
              if(list1.val<list2.val){
                  tail.next=list1;
                  list1=list1.next;
