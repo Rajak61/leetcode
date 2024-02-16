@@ -8,6 +8,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+ //core login merge two sort
  //Theory-https://www.youtube.com/watch?v=QG7AVdPbgb4&ab_channel=KnowledgeCenter
  //letcode java solution  Merge sort
  //time -0(n*logk),space-0(1)
@@ -36,36 +37,32 @@ class Solution {
         return merge(left, right);
     }
 
-    private ListNode merge(ListNode left, ListNode right) {
+    private ListNode merge(ListNode list1, ListNode list2) {
         // Create a dummy node
-        ListNode head = new ListNode(-1);
+        ListNode dummy = new ListNode(0);
         // Temp node
-        ListNode temp = head;
+        ListNode tail = dummy;
         // Loop until any of the list becomes null
-        while (left != null && right != null) {
+        while (list1 != null && list2 != null) {
             // Choose the value from the left and right which is smaller
-            if (left.val < right.val) {
-                temp.next = left;
-                left = left.next;
+            if (list1.val < list2.val) {
+                tail.next = list1;
+                list1 = list1.next;
             } else {
-                temp.next = right;
-                right = right.next;
+                tail.next = list2;
+                list2 = list2.next;
             }
-            temp = temp.next;
+            tail = tail.next;
         }
         // Take all nodes from left list if remaining
-        if (left != null) {
-            temp.next = left;
-          //  left = left.next;
-            //temp = temp.next;
+        if (list1 != null) {
+            tail.next = list1;
         }
         // Take all nodes from right list if remaining
-        if (right != null) {
-            temp.next = right;
-            //right = right.next;
-            //temp = temp.next;
+        if (list2!= null) {
+            tail.next = list2;
         }
-        return head.next;
+        return dummy.next;
     }
     
 }
