@@ -54,16 +54,16 @@ class Solution {
             temp = temp.next;
         }
         // Take all nodes from left list if remaining
-        while (left != null) {
+        if (left != null) {
             temp.next = left;
-            left = left.next;
-            temp = temp.next;
+          //  left = left.next;
+            //temp = temp.next;
         }
         // Take all nodes from right list if remaining
-        while (right != null) {
+        if (right != null) {
             temp.next = right;
-            right = right.next;
-            temp = temp.next;
+            //right = right.next;
+            //temp = temp.next;
         }
         return head.next;
     }
