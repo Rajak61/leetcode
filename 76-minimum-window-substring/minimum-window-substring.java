@@ -1,52 +1,27 @@
 class Solution {
-    //theory and code -https://www.youtube.com/watch?v=jSto0O4AJbM&ab_channel=NeetCode
     public String minWindow(String s, String t) {
-        if (t.isEmpty()) {
-            return "";
-        }
-
-        // Initialize the count of characters in t
-        HashMap<Character, Integer> countT = new HashMap<>();
-        for (char c : t.toCharArray()) {
-            countT.put(c, countT.getOrDefault(c, 0) + 1);
-        }
-
-        int have = 0, need = countT.size();
-        int[] res = {-1, -1};
-        int resLen = Integer.MAX_VALUE;
-        int l = 0;
-
-        // Slide the window
-        for (int r = 0; r < s.length(); r++) {
-            char c = s.charAt(r);
-            if (countT.containsKey(c)) {
-                countT.put(c, countT.get(c) - 1);
-                if (countT.get(c) == 0) {
-                    have++;
+        Map<Character, Integer> sMap = new HashMap<>();
+        Map<Character, Integer> tMap = new HashMap<>();
+        for(char c: t.toCharArray()) tMap.put(c, tMap.getOrDefault(c, 0) + 1);
+        int size = 0;
+        int i = 0;
+        String ans = "";
+        for(int j = 0; j < s.length(); j++) {
+            char c = s.charAt(j);
+            if (tMap.get(c) == null) continue;
+            sMap.put(c, sMap.getOrDefault(c, 0) + 1);
+            if (sMap.get(c).intValue() == tMap.get(c).intValue()) size++;
+            while(size == tMap.size()) {
+                if (ans.isEmpty() || j - i + 1 < ans.length()) ans = s.substring(i, j + 1);
+                char c1 = s.charAt(i);
+                if (sMap.get(c1) != null) {
+                    sMap.put(c1, sMap.get(c1) - 1);
+                    if (sMap.get(c1).intValue() < tMap.get(c1).intValue()) size--;
+                    if (sMap.get(c1) == 0) sMap.remove(c1);
                 }
-            }
-
-            // Shrink the window
-            while (have == need) {
-                // Update the result
-                if (r - l + 1 < resLen) {
-                    res[0] = l;
-                    res[1] = r;
-                    resLen = r - l + 1;
-                }
-
-                char leftChar = s.charAt(l);
-                if (countT.containsKey(leftChar)) {
-                    countT.put(leftChar, countT.get(leftChar) + 1);
-                    if (countT.get(leftChar) > 0) {
-                        have--;
-                    }
-                }
-                l++;
+                i++;
             }
         }
-
-        return resLen == Integer.MAX_VALUE ? "" : s.substring(res[0], res[1] + 1);
+        return ans;
     }
 }
-
