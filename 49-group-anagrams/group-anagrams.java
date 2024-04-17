@@ -12,9 +12,9 @@ class Solution {
             for (char c : s.toCharArray()) {
             ca[c - 'a']++;
             }
-            //String keyStr = String.valueOf(ca);// this is first way
+            String keyStr = String.valueOf(ca);// this is first way
             
-            String keyStr = getFreqCount(s);// this is second way
+            //String keyStr = getFreqCount(s);// this is second way
             if (!map.containsKey(keyStr)) {
             map.put(keyStr, new ArrayList<>());
             }
