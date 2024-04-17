@@ -12,7 +12,9 @@ class Solution {
             for (char c : s.toCharArray()) {
             ca[c - 'a']++;
             }
-            String keyStr = String.valueOf(ca);
+            //String keyStr = String.valueOf(ca);// this is first way
+            
+            String keyStr = getFreqCount(s);// this is second way
             if (!map.containsKey(keyStr)) {
             map.put(keyStr, new ArrayList<>());
             }
@@ -20,4 +22,26 @@ class Solution {
         }
         return new ArrayList<>(map.values());
     }
+    
+    	public String getFreqCount(String s){
+	
+		//req bucket
+		
+		int[] freq=new int[26]; // use above char array or here int array
+		
+		for(char ch:s.toCharArray()){
+			
+			freq[ch-'a']++;
+			
+		}
+		char c='a';
+		StringBuilder sb=new StringBuilder();
+		for(int i=0;i<freq.length;i++){
+			sb.append(c);
+			sb.append(freq[i]);
+			
+		}
+		return sb.toString();
+	}
+    
 }
