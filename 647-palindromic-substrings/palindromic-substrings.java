@@ -14,15 +14,15 @@ class Solution {
         for(int i=0;i<s.length();i++){
             
             //even and odd call
-            res+=isPalindrome(i,i,c);//even
-            res+=isPalindrome(i,i+1,c);//odd
+            res+=isPalindrome(i,i,s);//even
+            res+=isPalindrome(i,i+1,s);//odd
         }
      return res;   
     }
     
-    public int isPalindrome(int s,int e, char[] c){
+    public int isPalindrome(int l,int r, String s){
       int count=0;  
-      while(s>=0 & e<c.length && c[s--]==c[e++]){
+       while (l >= 0 && r < s.length() && s.charAt(l--) == s.charAt(r++)) {
             count++;
         }
         
