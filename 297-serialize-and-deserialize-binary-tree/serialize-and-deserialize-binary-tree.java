@@ -7,41 +7,40 @@ class TreeNode {
     TreeNode right;
     TreeNode(int val) { this.val = val; }
 }
-
 public class Codec {
+  // Encodes a tree to a single string.
+  public String serialize(TreeNode root) {
+    StringBuilder sb = new StringBuilder();
+    preorder(root, sb);
+    return sb.toString();
+  }
 
-    // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
-        StringBuilder res = new StringBuilder();
-        dfsSerialize(root, res);
-        return res.toString();
+  // Decodes your encoded data to tree.
+  public TreeNode deserialize(String data) {
+    final String[] vals = data.split(" ");
+    Queue<String> q = new ArrayDeque<>(List.of(vals));
+    return preorder(q);
+  }
+
+  private void preorder(TreeNode root, StringBuilder sb) {
+    if (root == null) {
+      sb.append("n ");
+      return;
     }
 
-    private void dfsSerialize(TreeNode node, StringBuilder res) {
-        if (node == null) {
-            res.append("N,");
-            return;
-        }
-        res.append(node.val).append(",");
-        dfsSerialize(node.left, res);
-        dfsSerialize(node.right, res);
-    }
+    sb.append(root.val).append(" ");
+    preorder(root.left, sb);
+    preorder(root.right, sb);
+  }
 
-    // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) {
-        String[] vals = data.split(",");
-        Queue<String> queue = new LinkedList<>(Arrays.asList(vals));
-        return dfsDeserialize(queue);
-    }
+  private TreeNode preorder(Queue<String> q) {
+    final String s = q.poll();
+    if (s.equals("n"))
+      return null;
 
-    private TreeNode dfsDeserialize(Queue<String> queue) {
-        String val = queue.poll();
-        if (val.equals("N")) {
-            return null;
-        }
-        TreeNode node = new TreeNode(Integer.parseInt(val));
-        node.left = dfsDeserialize(queue);
-        node.right = dfsDeserialize(queue);
-        return node;
-    }
+    TreeNode root = new TreeNode(Integer.parseInt(s));
+    root.left = preorder(q);
+    root.right = preorder(q);
+    return root;
+  }
 }
