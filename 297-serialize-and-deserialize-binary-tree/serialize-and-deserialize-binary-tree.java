@@ -8,39 +8,42 @@ class TreeNode {
     TreeNode(int val) { this.val = val; }
 }
 public class Codec {
-  // Encodes a tree to a single string.
-  public String serialize(TreeNode root) {
-    StringBuilder sb = new StringBuilder();
-    preorder(root, sb);
-    return sb.toString();
-  }
+    public static String serialize(TreeNode root) {
+		StringBuilder sb = new StringBuilder();
+		dfs(root,sb);
+		return sb.toString();
+	}
+	
+	public static void dfs(TreeNode root,StringBuilder sb){
+		if (root == null) {
+			sb.append("N,");
+			return;
+		}
+		sb.append(root.val).append(",");
+		dfs(root.left,sb);
+		dfs(root.right,sb);
+	
+		
+	}
 
-  // Decodes your encoded data to tree.
-  public TreeNode deserialize(String data) {
-    final String[] vals = data.split(" ");
-    Queue<String> q = new ArrayDeque<>(List.of(vals));
-    return preorder(q);
-  }
+	public static TreeNode deserialize(String data) {
 
-  private void preorder(TreeNode root, StringBuilder sb) {
-    if (root == null) {
-      sb.append("n ");
-      return;
-    }
+		String arr[] = data.split(",");
+		Queue<String> q = new ArrayDeque<>(Arrays.asList(arr));
 
-    sb.append(root.val).append(" ");
-    preorder(root.left, sb);
-    preorder(root.right, sb);
-  }
+		return dfs(q);
 
-  private TreeNode preorder(Queue<String> q) {
-    final String s = q.poll();
-    if (s.equals("n"))
-      return null;
+	}
 
-    TreeNode root = new TreeNode(Integer.parseInt(s));
-    root.left = preorder(q);
-    root.right = preorder(q);
-    return root;
-  }
+	public static TreeNode dfs(Queue<String> q) {
+		String s = q.poll();
+		if (s.equals("N")) {
+			return null;
+
+		}
+		TreeNode root = new TreeNode(Integer.parseInt(s));
+		root.left = dfs(q);
+		root.right = dfs(q);
+		return root;
+	}
 }
